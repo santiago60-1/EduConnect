@@ -1,0 +1,365 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Dr. María González",
+      "email": "maria.gonzalez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DMG",
+      "courses": 3,
+      "students": 87,
+      "status": "Activo",
+      "avatar": "bg-blue-600"
+    },
+    {
+      "id": 2,
+      "name": "Prof. Carlos Ruiz",
+      "email": "carlos.ruiz@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "PCR",
+      "courses": 2,
+      "students": 56,
+      "status": "Activo",
+      "avatar": "bg-purple-600"
+    },
+    {
+      "id": 3,
+      "name": "Dra. Ana Martínez",
+      "email": "ana.martinez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DAM",
+      "courses": 4,
+      "students": 102,
+      "status": "Activo",
+      "avatar": "bg-green-600"
+    },
+    {
+      "id": 4,
+      "name": "Prof. Luis Torres",
+      "email": "luis.torres@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "PLT",
+      "courses": 2,
+      "students": 45,
+      "status": "Activo",
+      "avatar": "bg-yellow-600"
+    },
+    {
+      "id": 5,
+      "name": "Dra. Carmen López",
+      "email": "carmen.lopez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DCL",
+      "courses": 3,
+      "students": 78,
+      "status": "Inactivo",
+      "avatar": "bg-red-600"
+    },
+    {
+      "id": 6,
+      "name": "Juan Pérez",
+      "email": "juan.perez@edu.com",
+      "password": "estudiante123",
+      "role": "estudiante",
+      "initials": "JP",
+      "courses": 4,
+      "gpa": 3.8,
+      "status": "Activo",
+      "avatar": "bg-indigo-600",
+      "skills": [
+        {
+          "id": 1,
+          "name": "JavaScript",
+          "category": "Programación",
+          "level": "Intermedio",
+          "icon": "💻"
+        },
+        {
+          "id": 2,
+          "name": "React",
+          "category": "Frameworks",
+          "level": "Intermedio",
+          "icon": "⚛️"
+        },
+        {
+          "id": 3,
+          "name": "Git",
+          "category": "Herramientas",
+          "level": "Principiante",
+          "icon": "📦"
+        },
+        {
+          "id": 4,
+          "name": "Comunicación",
+          "category": "Soft Skills",
+          "level": "Avanzado",
+          "icon": "💬"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "María García",
+      "email": "maria.garcia@edu.com",
+      "password": "estudiante123",
+      "role": "estudiante",
+      "initials": "MG",
+      "courses": 3,
+      "gpa": 3.5,
+      "status": "Activo",
+      "avatar": "bg-pink-600",
+      "skills": []
+    },
+    {
+      "id": 8,
+      "name": "Admin Sistema",
+      "email": "admin@edu.com",
+      "password": "admin123",
+      "role": "administrador",
+      "initials": "AS",
+      "permissions": ["usuarios", "cursos", "reportes", "configuracion"],
+      "status": "Activo",
+      "avatar": "bg-orange-600"
+    }
+  ],
+  "competencies": [
+    {
+      "id": 1,
+      "name": "JavaScript",
+      "category": "Programación",
+      "description": "Lenguaje de programación web",
+      "usage": 85,
+      "icon": "💻"
+    },
+    {
+      "id": 2,
+      "name": "Python",
+      "category": "Programación",
+      "description": "Lenguaje versátil para múltiples aplicaciones",
+      "usage": 72,
+      "icon": "🐍"
+    },
+    {
+      "id": 3,
+      "name": "SQL",
+      "category": "Bases de Datos",
+      "description": "Lenguaje de consulta estructurada",
+      "usage": 61,
+      "icon": "🗄️"
+    },
+    {
+      "id": 4,
+      "name": "Node.js",
+      "category": "Backend",
+      "description": "Entorno de ejecución JavaScript",
+      "usage": 58,
+      "icon": "⚙️"
+    },
+    {
+      "id": 5,
+      "name": "MongoDB",
+      "category": "Bases de Datos",
+      "description": "Base de datos NoSQL",
+      "usage": 35,
+      "icon": "🍃"
+    },
+    {
+      "id": 6,
+      "name": "React",
+      "category": "Frontend",
+      "description": "Biblioteca para desarrollo de interfaces",
+      "usage": 68,
+      "icon": "⚛️"
+    },
+    {
+      "id": 7,
+      "name": "Git",
+      "category": "Herramientas",
+      "description": "Sistema de control de versiones",
+      "usage": 55,
+      "icon": "📦"
+    },
+    {
+      "id": 8,
+      "name": "Docker",
+      "category": "DevOps",
+      "description": "Plataforma de contenedores",
+      "usage": 42,
+      "icon": "🐳"
+    },
+    {
+      "id": 9,
+      "name": "Comunicación",
+      "category": "Soft Skills",
+      "description": "Habilidad de comunicación efectiva",
+      "usage": 91,
+      "icon": "💬"
+    },
+    {
+      "id": 10,
+      "name": "Trabajo en Equipo",
+      "category": "Soft Skills",
+      "description": "Colaboración y trabajo grupal",
+      "usage": 88,
+      "icon": "👥"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 1,
+      "title": "Desarrollador Full Stack Junior",
+      "company": "TechCorp",
+      "location": "Remoto",
+      "type": "Tiempo Completo",
+      "salary": "$35,000 - $45,000",
+      "skills": ["JavaScript", "React", "Node.js", "SQL"],
+      "candidates": 23,
+      "status": "Activa",
+      "icon": "💻"
+    },
+    {
+      "id": 2,
+      "title": "DevOps Engineer",
+      "company": "CloudNet",
+      "location": "Presencial - Barcelona",
+      "type": "Tiempo Completo",
+      "salary": "$45,000 - $60,000",
+      "skills": ["Docker", "Git", "Python", "Node.js"],
+      "candidates": 12,
+      "status": "Activa",
+      "icon": "⚙️"
+    },
+    {
+      "id": 3,
+      "title": "Backend Developer",
+      "company": "TechCorp",
+      "location": "Remoto",
+      "type": "Tiempo Completo",
+      "salary": "$38,000 - $48,000",
+      "skills": ["Node.js", "MongoDB", "Python", "Docker"],
+      "candidates": 15,
+      "status": "Cerrada",
+      "icon": "🔧"
+    },
+    {
+      "id": 4,
+      "title": "Analista de Datos",
+      "company": "DataSystems",
+      "location": "Híbrido - Madrid",
+      "type": "Tiempo Completo",
+      "salary": "$40,000 - $52,000",
+      "skills": ["Python", "SQL", "Comunicación", "Trabajo en Equipo"],
+      "candidates": 18,
+      "status": "Activa",
+      "icon": "📊"
+    },
+    {
+      "id": 5,
+      "title": "Frontend Developer",
+      "company": "InnovateSoft",
+      "location": "Remoto",
+      "type": "Medio Tiempo",
+      "salary": "$25,000 - $35,000",
+      "skills": ["React", "JavaScript", "Git"],
+      "candidates": 31,
+      "status": "Activa",
+      "icon": "🎨"
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "title": "Programación Web Avanzada",
+      "description": "Curso avanzado de desarrollo web con React y Node.js",
+      "code": "PWA-2025-A1",
+      "startDate": "14 de enero de 2025",
+      "students": 45,
+      "status": "Activo",
+      "competencies": ["JavaScript", "React", "Node.js", "SQL", "Git"],
+      "icon": "💻",
+      "professor": "Dr. María González",
+      "enrolledStudents": [
+        {
+          "id": 1,
+          "name": "Juan Pérez",
+          "email": "juan.perez@estudiante.com",
+          "enrollDate": "9/1/2025",
+          "progress": 75,
+          "initials": "JP"
+        },
+        {
+          "id": 2,
+          "name": "María García",
+          "email": "maria.garcia@estudiante.com",
+          "enrollDate": "11/1/2025",
+          "progress": 82,
+          "initials": "MG"
+        },
+        {
+          "id": 3,
+          "name": "Carlos Rodríguez",
+          "email": "carlos.rodriguez@estudiante.com",
+          "enrollDate": "10/1/2025",
+          "progress": 68,
+          "initials": "CR"
+        },
+        {
+          "id": 4,
+          "name": "Ana Martínez",
+          "email": "ana.martinez@estudiante.com",
+          "enrollDate": "12/1/2025",
+          "progress": 51,
+          "initials": "AM"
+        },
+        {
+          "id": 5,
+          "name": "Luis Torres",
+          "email": "luis.torres@estudiante.com",
+          "enrollDate": "13/1/2025",
+          "progress": 55,
+          "initials": "LT"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Bases de Datos",
+      "description": "Fundamentos y diseño de bases de datos relacionales",
+      "code": "BD-2025-B2",
+      "startDate": "19 de enero de 2025",
+      "students": 38,
+      "status": "Activo",
+      "competencies": ["SQL", "MongoDB", "Modelado de BD"],
+      "icon": "🗄️",
+      "professor": "Prof. Carlos Ruiz",
+      "enrolledStudents": [
+        {
+          "id": 6,
+          "name": "Estudiante 2",
+          "email": "estudiante2@edu.com",
+          "enrollDate": "19/1/2025",
+          "progress": 62,
+          "initials": "E2"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Desarrollo Móvil",
+      "description": "Desarrollo de aplicaciones móviles multiplataforma",
+      "code": "DM-2025-C3",
+      "startDate": "31 de enero de 2025",
+      "students": 25,
+      "status": "Borrador",
+      "competencies": ["React Native", "JavaScript", "Mobile Dev"],
+      "icon": "📱",
+      "professor": "Dra. Ana Martínez",
+      "enrolledStudents": []
+    }
+  ]
+}
