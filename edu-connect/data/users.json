@@ -1,0 +1,99 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Dr. María González",
+      "email": "maria.gonzalez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DMG",
+      "courses": 3,
+      "students": 87,
+      "status": "Activo",
+      "avatar": "bg-blue-600"
+    },
+    {
+      "id": 2,
+      "name": "Prof. Carlos Ruiz",
+      "email": "carlos.ruiz@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "PCR",
+      "courses": 2,
+      "students": 56,
+      "status": "Activo",
+      "avatar": "bg-purple-600"
+    },
+    {
+      "id": 3,
+      "name": "Dra. Ana Martínez",
+      "email": "ana.martinez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DAM",
+      "courses": 4,
+      "students": 102,
+      "status": "Activo",
+      "avatar": "bg-green-600"
+    },
+    {
+      "id": 4,
+      "name": "Prof. Luis Torres",
+      "email": "luis.torres@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "PLT",
+      "courses": 2,
+      "students": 45,
+      "status": "Activo",
+      "avatar": "bg-yellow-600"
+    },
+    {
+      "id": 5,
+      "name": "Dra. Carmen López",
+      "email": "carmen.lopez@edu.com",
+      "password": "profesor123",
+      "role": "profesor",
+      "initials": "DCL",
+      "courses": 3,
+      "students": 78,
+      "status": "Inactivo",
+      "avatar": "bg-red-600"
+    },
+    {
+      "id": 6,
+      "name": "Juan Pérez",
+      "email": "juan.perez@edu.com",
+      "password": "estudiante123",
+      "role": "estudiante",
+      "initials": "JP",
+      "courses": 4,
+      "gpa": 3.8,
+      "status": "Activo",
+      "avatar": "bg-indigo-600"
+    },
+    {
+      "id": 7,
+      "name": "María García",
+      "email": "maria.garcia@edu.com",
+      "password": "estudiante123",
+      "role": "estudiante",
+      "initials": "MG",
+      "courses": 3,
+      "gpa": 3.5,
+      "status": "Activo",
+      "avatar": "bg-pink-600"
+    },
+    {
+      "id": 8,
+      "name": "Admin Sistema",
+      "email": "admin@edu.com",
+      "password": "admin123",
+      "role": "administrador",
+      "initials": "AS",
+      "permissions": ["usuarios", "cursos", "reportes", "configuracion"],
+      "status": "Activo",
+      "avatar": "bg-orange-600"
+    }
+  ]
+}
