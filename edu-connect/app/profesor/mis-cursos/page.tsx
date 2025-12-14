@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import TeacherLayout from "@/app/components/TeacherLayout";
+import { useAuth } from "@/app/hooks/useAuth";
 import { useState, useEffect } from "react";
 
 interface Course {
@@ -16,7 +17,7 @@ interface Course {
 }
 
 export default function MisCursosPage() {
-  const router = useRouter();
+  const { user, loading: authLoading, authorized } = useAuth('profesor');
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,13 +38,6 @@ export default function MisCursosPage() {
     fetchCourses();
   }, []);
 
-  const handleLogout = () => {
-    router.push("/login");
-  };
-
-  const handleViewDetails = (courseId: number) => {
-    router.push(`/profesor/mis-cursos/${courseId}`);
-  };
 
   const filteredCourses = courses.filter(
     (course) =>
@@ -54,50 +48,35 @@ export default function MisCursosPage() {
   const totalStudents = courses.reduce((sum, course) => sum + course.students, 0);
   const activeCourses = courses.filter((c) => c.status === "Activo").length;
 
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <p className="text-gray-600">Cargando...</p>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <p className="text-gray-600">No tienes permiso para acceder a esta página</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Profesor</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Profesor</h2>
-          <nav className="space-y-4">
-            <a
-              href="/profesor/mis-cursos"
-              className="flex items-center gap-3 px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium"
-            >
-              <span>📚</span> Mis Cursos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <TeacherLayout userName={user?.name || "Profesor"} userInitials={user?.initials || "PR"}>
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Mis Cursos</h2>
               <p className="text-gray-600 mt-2">Gestiona tus cursos y estudiantes</p>
             </div>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <a
+              href="/profesor/mis-cursos/nuevo"
+              className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
               + Crear Curso
-            </button>
+            </a>
           </div>
 
           {/* Stats */}
@@ -119,7 +98,7 @@ export default function MisCursosPage() {
               placeholder="🔍 Buscar cursos..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
             />
           </div>
 
@@ -175,19 +154,17 @@ export default function MisCursosPage() {
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => handleViewDetails(course.id)}
-                      className="w-full py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded transition-colors"
+                    <a
+                      href={`/profesor/mis-cursos/${course.id}`}
+                      className="block w-full py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded transition-colors text-center"
                     >
                       Ver detalles →
-                    </button>
+                    </a>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </main>
-      </div>
-    </div>
+    </TeacherLayout>
   );
 }

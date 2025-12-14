@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import AdminLayout from "@/app/components/AdminLayout";
 import { useState, useEffect } from "react";
 
 interface Professor {
@@ -16,7 +16,6 @@ interface Professor {
 }
 
 export default function ProfesoresPage() {
-  const router = useRouter();
   const [professors, setProfessors] = useState<Professor[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -39,10 +38,6 @@ export default function ProfesoresPage() {
     fetchProfessors();
   }, []);
 
-  const handleLogout = () => {
-    router.push("/login");
-  };
-
   const handleEdit = (id: number) => {
     alert(`Editar profesor ${id}`);
   };
@@ -60,61 +55,18 @@ export default function ProfesoresPage() {
   const activeProfessors = professors.filter((p) => p.status === "Activo").length;
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Administración</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Administración</h2>
-          <nav className="space-y-4">
-            <a
-              href="/admin"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📊</span> Analítica
-            </a>
-            <a
-              href="/admin/profesores"
-              className="flex items-center gap-3 px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium"
-            >
-              <span>👥</span> Profesores
-            </a>
-            <a href="/admin/competencias" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>📚</span> Competencias
-            </a>
-            <a href="/admin/empleos" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>👨‍💼</span> Empleos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <AdminLayout>
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Gestión de Profesores</h2>
               <p className="text-gray-600 mt-2">Administra los profesores y sus credenciales</p>
             </div>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <a
+              href="/admin/profesores/nuevo"
+              className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
               + Nuevo Profesor
-            </button>
+            </a>
           </div>
 
           {/* Stats */}
@@ -136,7 +88,7 @@ export default function ProfesoresPage() {
               placeholder="🔍 Buscar profesores..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
             />
           </div>
 
@@ -209,8 +161,6 @@ export default function ProfesoresPage() {
               </div>
             )}
           </div>
-        </main>
-      </div>
-    </div>
+    </AdminLayout>
   );
 }

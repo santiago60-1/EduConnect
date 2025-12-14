@@ -1,5 +1,7 @@
 "use client";
 
+import TeacherLayout from "@/app/components/TeacherLayout";
+import { useAuth } from "@/app/hooks/useAuth";
 import { useRouter, useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -29,6 +31,7 @@ export default function CourseDetailPage() {
   const router = useRouter();
   const params = useParams();
   const courseId = params.id;
+  const { user, loading: authLoading, authorized } = useAuth('profesor');
 
   const [course, setCourse] = useState<Course | null>(null);
   const [loading, setLoading] = useState(true);
@@ -58,10 +61,18 @@ export default function CourseDetailPage() {
     alert(`Ver perfil del estudiante ${studentId}`);
   };
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
         <p className="text-gray-600">Cargando...</p>
+      </div>
+    );
+  }
+
+  if (!authorized) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <p className="text-gray-600">No tienes permiso para acceder a esta página</p>
       </div>
     );
   }
@@ -75,41 +86,7 @@ export default function CourseDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Profesor</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Profesor</h2>
-          <nav className="space-y-4">
-            <a
-              href="/profesor/mis-cursos"
-              className="flex items-center gap-3 px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium"
-            >
-              <span>📚</span> Mis Cursos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <TeacherLayout userName={user?.name || "Profesor"} userInitials={user?.initials || "PR"}>
           {/* Header */}
           <div className="mb-8">
             <button
@@ -230,8 +207,6 @@ export default function CourseDetailPage() {
               </div>
             )}
           </div>
-        </main>
-      </div>
-    </div>
+    </TeacherLayout>
   );
 }

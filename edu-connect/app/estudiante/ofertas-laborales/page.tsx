@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import StudentLayout from "@/app/components/StudentLayout";
 import { useState, useEffect } from "react";
 
 interface Job {
@@ -22,7 +22,6 @@ interface StudentSkill {
 }
 
 export default function OfertasLaboralesPage() {
-  const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -62,14 +61,6 @@ export default function OfertasLaboralesPage() {
     fetchData();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    router.push("/login");
-  };
-
-  const handleApply = (jobId: number) => {
-    alert(`Solicitud enviada para el empleo ${jobId}`);
-  };
 
   // Calcular coincidencia de habilidades
   const calculateMatch = (jobSkills: string[]): number => {
@@ -101,53 +92,7 @@ export default function OfertasLaboralesPage() {
   const highMatchJobs = jobs.filter((job) => calculateMatch(job.skills) >= 80).length;
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Estudiante</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Estudiante</h2>
-          <nav className="space-y-4">
-            <a
-              href="/estudiante/mis-cursos"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📚</span> Mis Cursos
-            </a>
-            <a
-              href="/estudiante/perfil-habilidades"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>⭐</span> Perfil de Habilidades
-            </a>
-            <a
-              href="/estudiante/ofertas-laborales"
-              className="flex items-center gap-3 px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg font-medium"
-            >
-              <span>💼</span> Ofertas Laborales
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <StudentLayout userName={user?.name || "Estudiante"} userInitials={user?.initials || "ES"}>
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900">Ofertas Laborales</h2>
             <p className="text-gray-600 mt-2">Explora oportunidades basadas en tu perfil de habilidades</p>
@@ -184,7 +129,7 @@ export default function OfertasLaboralesPage() {
               placeholder="🔍 Buscar ofertas por título o empresa..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
             />
           </div>
 
@@ -261,19 +206,17 @@ export default function OfertasLaboralesPage() {
                       </div>
                     </div>
 
-                    <button
-                      onClick={() => handleApply(job.id)}
-                      className="w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                    <a
+                      href={`/estudiante/ofertas-laborales/${job.id}`}
+                      className="block w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center"
                     >
                       Ver Detalles
-                    </button>
+                    </a>
                   </div>
                 );
               })}
             </div>
           )}
-        </main>
-      </div>
-    </div>
+    </StudentLayout>
   );
 }

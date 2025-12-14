@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import StudentLayout from "@/app/components/StudentLayout";
 import { useState, useEffect } from "react";
 
 interface Skill {
@@ -12,7 +12,6 @@ interface Skill {
 }
 
 export default function PerfilHabilidadesPage() {
-  const router = useRouter();
   const [skills, setSkills] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
@@ -44,18 +43,6 @@ export default function PerfilHabilidadesPage() {
     fetchUserSkills();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    router.push("/login");
-  };
-
-  const handleUpdateSkill = (skillId: number) => {
-    alert(`Actualizar habilidad ${skillId}`);
-  };
-
-  const handleAddSkill = () => {
-    alert("Agregar nueva habilidad");
-  };
 
   // Agrupar habilidades por categoría
   const skillsByCategory = skills.reduce((acc, skill) => {
@@ -83,61 +70,18 @@ export default function PerfilHabilidadesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Estudiante</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Estudiante</h2>
-          <nav className="space-y-4">
-            <a
-              href="/estudiante/mis-cursos"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📚</span> Mis Cursos
-            </a>
-            <a
-              href="/estudiante/perfil-habilidades"
-              className="flex items-center gap-3 px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg font-medium"
-            >
-              <span>⭐</span> Perfil de Habilidades
-            </a>
-            <a href="/estudiante/ofertas-laborales" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>💼</span> Ofertas Laborales
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <StudentLayout userName={user?.name || "Estudiante"} userInitials={user?.initials || "ES"}>
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Perfil de Habilidades</h2>
               <p className="text-gray-600 mt-2">Gestiona las habilidades para mejorar tu empleabilidad</p>
             </div>
-            <button
-              onClick={handleAddSkill}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            <a
+              href="/estudiante/perfil-habilidades/nueva"
+              className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
             >
               + Añadir Habilidad
-            </button>
+            </a>
           </div>
 
           {/* Info Banner */}
@@ -170,12 +114,12 @@ export default function PerfilHabilidadesPage() {
           ) : skills.length === 0 ? (
             <div className="bg-white rounded-lg shadow p-12 text-center">
               <p className="text-gray-600 mb-4">No tienes habilidades registradas aún</p>
-              <button
-                onClick={handleAddSkill}
-                className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              <a
+                href="/estudiante/perfil-habilidades/nueva"
+                className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 Añadir tu Primera Habilidad
-              </button>
+              </a>
             </div>
           ) : (
             <div className="space-y-8">
@@ -193,12 +137,12 @@ export default function PerfilHabilidadesPage() {
                               <p className="text-sm text-gray-600">{category}</p>
                             </div>
                           </div>
-                          <button
-                            onClick={() => handleUpdateSkill(skill.id)}
-                            className="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded transition-colors font-semibold text-sm"
+                          <a
+                            href={`/estudiante/perfil-habilidades/${skill.id}/actualizar`}
+                            className="inline-block px-4 py-2 text-blue-600 hover:bg-blue-50 rounded transition-colors font-semibold text-sm"
                           >
                             Actualizar
-                          </button>
+                          </a>
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -224,8 +168,6 @@ export default function PerfilHabilidadesPage() {
               ))}
             </div>
           )}
-        </main>
-      </div>
-    </div>
+    </StudentLayout>
   );
 }
