@@ -1,56 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import AdminLayout from "@/app/components/AdminLayout";
 
 export default function AdminDashboard() {
-  const router = useRouter();
-
-  const handleLogout = () => {
-    router.push("/login");
-  };
-
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Administración</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Administración</h2>
-          <nav className="space-y-4">
-            <a href="/admin" className="flex items-center gap-3 px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium">
-              <span>📊</span> Analítica
-            </a>
-            <a href="/admin/profesores" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>👥</span> Profesores
-            </a>
-            <a href="/admin/competencias" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>📚</span> Competencias
-            </a>
-            <a href="/admin/empleos" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>👨‍💼</span> Empleos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <AdminLayout>
           <h2 className="text-3xl font-bold text-gray-900 mb-2">Analítica del Sistema</h2>
           <p className="text-gray-600 mb-8">Visualiza métricas clave y KPIs de la plataforma</p>
 
@@ -86,7 +40,7 @@ export default function AdminDashboard() {
             {/* Chart 1: Estudiantes por Curso */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-6">Estudiantes por Curso</h3>
-              <div className="flex items-end justify-around h-64">
+              <div className="flex items-end justify-around h-80">
                 {[
                   { name: "Programación Web", value: 45 },
                   { name: "Base de Datos", value: 38 },
@@ -94,12 +48,13 @@ export default function AdminDashboard() {
                   { name: "IA", value: 28 },
                   { name: "Móvil", value: 25 },
                 ].map((course, index) => (
-                  <div key={index} className="flex flex-col items-center gap-2">
+                  <div key={index} className="flex flex-col items-center gap-3">
+                    <span className="text-lg font-bold text-gray-900">{course.value}</span>
                     <div
-                      className="w-12 bg-blue-600 rounded-t"
-                      style={{ height: `${(course.value / 45) * 200}px` }}
+                      className="w-14 bg-blue-600 rounded-t transition-all hover:bg-blue-700"
+                      style={{ height: `${(course.value / 45) * 220}px` }}
                     ></div>
-                    <p className="text-xs text-gray-600 text-center max-w-16">{course.name}</p>
+                    <p className="text-xs text-gray-600 text-center max-w-16 font-medium">{course.name}</p>
                   </div>
                 ))}
               </div>
@@ -108,39 +63,28 @@ export default function AdminDashboard() {
             {/* Chart 2: Habilidades Más Frecuentes */}
             <div className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-6">Habilidades Más Frecuentes</h3>
-              <div className="flex justify-center items-center h-64">
-                <svg viewBox="0 0 200 200" className="w-full h-full max-w-xs">
-                  {/* Pie Chart */}
-                  <circle cx="100" cy="100" r="80" fill="#3B82F6" opacity="0.8" />
-                  <circle cx="100" cy="100" r="60" fill="white" />
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#F59E0B" strokeWidth="20" strokeDasharray="50 251" />
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#EF4444" strokeWidth="20" strokeDasharray="45 251" strokeDashoffset="-50" />
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#8B5CF6" strokeWidth="20" strokeDasharray="40 251" strokeDashoffset="-95" />
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#EC4899" strokeWidth="20" strokeDasharray="35 251" strokeDashoffset="-135" />
-                  <circle cx="100" cy="100" r="80" fill="none" stroke="#10B981" strokeWidth="20" strokeDasharray="30 251" strokeDashoffset="-170" />
-                </svg>
-              </div>
-              <div className="mt-4 space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-blue-600 rounded"></div>
-                  <span>JavaScript: 85</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-yellow-500 rounded"></div>
-                  <span>Python: 72</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-red-500 rounded"></div>
-                  <span>React: 68</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-purple-500 rounded"></div>
-                  <span>SQL: 61</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded"></div>
-                  <span>Git: 55</span>
-                </div>
+              <div className="space-y-3">
+                {[
+                  { name: "JavaScript", count: 245, color: "bg-blue-600" },
+                  { name: "Python", count: 198, color: "bg-yellow-500" },
+                  { name: "React", count: 187, color: "bg-red-500" },
+                  { name: "SQL", count: 165, color: "bg-purple-500" },
+                  { name: "Git", count: 142, color: "bg-green-500" },
+                  { name: "TypeScript", count: 128, color: "bg-blue-400" },
+                  { name: "Node.js", count: 115, color: "bg-green-600" },
+                  { name: "MongoDB", count: 98, color: "bg-green-700" },
+                ].map((skill, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <div className="w-24 text-sm font-medium text-gray-700">{skill.name}</div>
+                    <div className="flex-1 bg-gray-200 rounded-full h-2">
+                      <div
+                        className={`${skill.color} h-2 rounded-full transition-all`}
+                        style={{ width: `${(skill.count / 245) * 100}%` }}
+                      ></div>
+                    </div>
+                    <span className="text-sm text-gray-600 w-12 text-right">{skill.count}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -148,19 +92,20 @@ export default function AdminDashboard() {
           {/* Cursos Creados por Período */}
           <div className="bg-white rounded-lg shadow p-6 mb-8">
             <h3 className="text-lg font-bold text-gray-900 mb-6">Cursos Creados por Período</h3>
-            <div className="flex items-end justify-around h-64">
+            <div className="flex items-end justify-around h-80">
               {[
                 { period: "Ene-Mar", value: 12 },
                 { period: "Abr-Jun", value: 15 },
                 { period: "Jul-Sep", value: 18 },
                 { period: "Oct-Dic", value: 13 },
               ].map((period, index) => (
-                <div key={index} className="flex flex-col items-center gap-2">
+                <div key={index} className="flex flex-col items-center gap-3">
+                  <span className="text-lg font-bold text-gray-900">{period.value}</span>
                   <div
-                    className="w-16 bg-green-500 rounded-t"
+                    className="w-16 bg-green-500 rounded-t transition-all hover:bg-green-600"
                     style={{ height: `${(period.value / 18) * 200}px` }}
                   ></div>
-                  <p className="text-sm text-gray-600">{period.period}</p>
+                  <p className="text-sm font-medium text-gray-600">{period.period}</p>
                 </div>
               ))}
             </div>
@@ -193,8 +138,53 @@ export default function AdminDashboard() {
               El 47% de los estudiantes tienen más de 70% de coincidencia con al menos una oferta laboral.
             </p>
           </div>
-        </main>
-      </div>
-    </div>
+
+          {/* Profesores Activos y Estadísticas */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+            {/* Profesores Activos */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-6">Profesores Activos</h3>
+              <div className="space-y-4">
+                {[
+                  { name: "Dr. María González", courses: 5, students: 142 },
+                  { name: "Prof. Carlos Ruiz", courses: 4, students: 118 },
+                  { name: "Ing. Ana López", courses: 3, students: 95 },
+                  { name: "Dr. Juan Martínez", courses: 4, students: 127 },
+                  { name: "Prof. Elena Sánchez", courses: 3, students: 89 },
+                ].map((teacher, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <p className="font-medium text-gray-900">{teacher.name}</p>
+                      <p className="text-xs text-gray-600">{teacher.courses} cursos • {teacher.students} estudiantes</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-bold text-blue-600">{teacher.courses}</p>
+                      <p className="text-xs text-gray-600">cursos</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Estadísticas de Inscripción */}
+            <div className="bg-white rounded-lg shadow p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-6">Estadísticas de Inscripción</h3>
+              <div className="space-y-4">
+                {[
+                  { label: "Inscritos Este Mes", value: 342, color: "text-green-600", bg: "bg-green-50" },
+                  { label: "Completaron Curso", value: 287, color: "text-blue-600", bg: "bg-blue-50" },
+                  { label: "En Progreso", value: 456, color: "text-yellow-600", bg: "bg-yellow-50" },
+                  { label: "Tasa de Finalización", value: "78%", color: "text-purple-600", bg: "bg-purple-50" },
+                  { label: "Satisfacción Promedio", value: "4.7/5", color: "text-orange-600", bg: "bg-orange-50" },
+                ].map((stat, index) => (
+                  <div key={index} className={`p-4 rounded-lg ${stat.bg}`}>
+                    <p className="text-sm text-gray-600">{stat.label}</p>
+                    <p className={`text-2xl font-bold ${stat.color} mt-1`}>{stat.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+    </AdminLayout>
   );
 }

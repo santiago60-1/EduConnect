@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import AdminLayout from "@/app/components/AdminLayout";
 import { useState, useEffect } from "react";
 
 interface Competency {
@@ -13,7 +13,6 @@ interface Competency {
 }
 
 export default function CompetenciasPage() {
-  const router = useRouter();
   const [competencies, setCompetencies] = useState<Competency[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,10 +33,6 @@ export default function CompetenciasPage() {
 
     fetchCompetencies();
   }, []);
-
-  const handleLogout = () => {
-    router.push("/login");
-  };
 
   const handleEdit = (id: number) => {
     alert(`Editar competencia ${id}`);
@@ -63,64 +58,18 @@ export default function CompetenciasPage() {
   const mostUsed = competencies.sort((a, b) => b.usage - a.usage).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Administración</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Administración</h2>
-          <nav className="space-y-4">
-            <a
-              href="/admin"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📊</span> Analítica
-            </a>
-            <a
-              href="/admin/profesores"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>👥</span> Profesores
-            </a>
-            <a
-              href="/admin/competencias"
-              className="flex items-center gap-3 px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium"
-            >
-              <span>📚</span> Competencias
-            </a>
-            <a href="/admin/empleos" className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-              <span>👨‍💼</span> Empleos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <AdminLayout>
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Gestión de Competencias</h2>
               <p className="text-gray-600 mt-2">Administra las competencias disponibles en el sistema</p>
             </div>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+            <a
+              href="/admin/competencias/nueva"
+              className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
               + Nueva Competencia
-            </button>
+            </a>
           </div>
 
           {/* Stats */}
@@ -159,12 +108,12 @@ export default function CompetenciasPage() {
                 placeholder="🔍 Buscar competencias..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
               />
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               >
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
@@ -224,8 +173,6 @@ export default function CompetenciasPage() {
               </div>
             )}
           </div>
-        </main>
-      </div>
-    </div>
+    </AdminLayout>
   );
 }

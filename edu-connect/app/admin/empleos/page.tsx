@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import AdminLayout from "@/app/components/AdminLayout";
 import { useState, useEffect } from "react";
 
 interface Job {
@@ -17,7 +17,6 @@ interface Job {
 }
 
 export default function EmpleosPage() {
-  const router = useRouter();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -38,10 +37,6 @@ export default function EmpleosPage() {
 
     fetchJobs();
   }, []);
-
-  const handleLogout = () => {
-    router.push("/login");
-  };
 
   const handleEdit = (id: number) => {
     alert(`Editar empleo ${id}`);
@@ -64,71 +59,25 @@ export default function EmpleosPage() {
   const totalCandidates = jobs.reduce((sum, job) => sum + job.candidates, 0);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      {/* Navbar */}
-      <nav className="bg-white shadow-md">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">EC</span>
-            </div>
-            <h1 className="text-xl font-bold text-gray-900">EduConnect - Panel de Administración</h1>
-          </div>
-          <button
-            onClick={handleLogout}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            Cerrar Sesión
-          </button>
-        </div>
-      </nav>
-
-      {/* Sidebar */}
-      <div className="flex">
-        <aside className="w-64 bg-white shadow-md min-h-screen p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-6">Panel de Administración</h2>
-          <nav className="space-y-4">
-            <a
-              href="/admin"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📊</span> Analítica
-            </a>
-            <a
-              href="/admin/profesores"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>👥</span> Profesores
-            </a>
-            <a
-              href="/admin/competencias"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
-            >
-              <span>📚</span> Competencias
-            </a>
-            <a
-              href="/admin/empleos"
-              className="flex items-center gap-3 px-4 py-2 bg-orange-100 text-orange-700 rounded-lg font-medium"
-            >
-              <span>👨‍💼</span> Empleos
-            </a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main className="flex-1 p-8">
+    <AdminLayout>
           <div className="flex justify-between items-center mb-8">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">Gestión de Empleo</h2>
               <p className="text-gray-600 mt-2">Administra empresas y ofertas laborales</p>
             </div>
             <div className="flex gap-3">
-              <button className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+              <a
+                href="/admin/empleos/nueva-empresa"
+                className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
                 + Nueva Empresa
-              </button>
-              <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+              </a>
+              <a
+                href="/admin/empleos/nueva-oferta"
+                className="inline-block px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+              >
                 + Nueva Oferta
-              </button>
+              </a>
             </div>
           </div>
 
@@ -160,12 +109,12 @@ export default function EmpleosPage() {
                 placeholder="🔍 Buscar empleos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder-gray-500 text-gray-900"
               />
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
               >
                 <option value="Todas">Todas las ofertas</option>
                 <option value="Activa">Activas</option>
@@ -251,8 +200,6 @@ export default function EmpleosPage() {
               </div>
             )}
           </div>
-        </main>
-      </div>
-    </div>
+    </AdminLayout>
   );
 }
