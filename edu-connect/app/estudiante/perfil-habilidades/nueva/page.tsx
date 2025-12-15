@@ -2,8 +2,10 @@
 
 import StudentLayout from "@/app/components/StudentLayout";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NuevaHabilidadPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     nombre: "",
     categoria: "",
@@ -35,6 +37,15 @@ export default function NuevaHabilidadPage() {
   return (
     <StudentLayout userName="Estudiante" userInitials="ES">
       <div className="max-w-2xl mx-auto">
+        {/* Botón Volver Atrás */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+        >
+          <span className="text-xl">←</span>
+          Volver atrás
+        </button>
+
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Añadir Nueva Habilidad</h2>
           <p className="text-gray-600 mt-2">Agrega una nueva habilidad a tu perfil</p>
@@ -133,14 +144,14 @@ export default function NuevaHabilidadPage() {
             <div className="flex gap-4 pt-6">
               <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer"
               >
                 Añadir Habilidad
               </button>
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium cursor-pointer"
               >
                 Cancelar
               </button>

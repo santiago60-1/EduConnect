@@ -62,7 +62,7 @@ export default function MisCursosEstudiantePage() {
             </div>
             <button
               onClick={() => setShowEnrollModal(true)}
-              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
             >
               + Unirse a Curso
             </button>
@@ -84,13 +84,13 @@ export default function MisCursosEstudiantePage() {
                 <div className="flex gap-3">
                   <button
                     onClick={handleEnroll}
-                    className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                    className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
                   >
                     Inscribir
                   </button>
                   <button
                     onClick={() => setShowEnrollModal(false)}
-                    className="flex-1 px-4 py-2 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                    className="flex-1 px-4 py-2 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium cursor-pointer"
                   >
                     Cancelar
                   </button>
@@ -107,7 +107,7 @@ export default function MisCursosEstudiantePage() {
               <p className="mb-4">No estás inscrito en ningún curso aún</p>
               <button
                 onClick={() => setShowEnrollModal(true)}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium cursor-pointer"
               >
                 Unirse a un Curso
               </button>
@@ -162,7 +162,7 @@ export default function MisCursosEstudiantePage() {
 
                     <a
                       href={`/estudiante/mis-cursos/${course.id}`}
-                      className="block w-full py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded transition-colors text-center"
+                      className="block w-full py-2 text-blue-600 font-semibold hover:bg-blue-50 rounded transition-colors text-center cursor-pointer"
                     >
                       Ver detalles →
                     </a>
