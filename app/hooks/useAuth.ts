@@ -2,14 +2,11 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface User {
-  id: number;
-  name: string;
   email: string;
-  role: 'admin' | 'profesor' | 'estudiante';
-  initials: string;
+  role: string;
 }
 
-export function useAuth(requiredRole?: 'admin' | 'profesor' | 'estudiante') {
+export function useAuth(requiredRole?: string) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -21,9 +18,10 @@ export function useAuth(requiredRole?: 'admin' | 'profesor' | 'estudiante') {
     if (checked) return;
 
     const userStr = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
     
-    if (!userStr) {
-      // No hay usuario, redirigir a login
+    if (!userStr || !token) {
+      // No hay usuario o token, redirigir a login
       setLoading(false);
       setAuthorized(false);
       setChecked(true);
@@ -36,7 +34,7 @@ export function useAuth(requiredRole?: 'admin' | 'profesor' | 'estudiante') {
       setUser(userData);
 
       // Verificar si el rol es el requerido
-      if (requiredRole && userData.role !== requiredRole) {
+      if (requiredRole && userData.role?.toLowerCase() !== requiredRole.toLowerCase()) {
         // Rol no autorizado, redirigir a login
         setAuthorized(false);
         setLoading(false);

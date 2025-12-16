@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { login } from "@/app/lib/api";
 
 export default function Login() {
   const router = useRouter();
@@ -16,40 +17,35 @@ export default function Login() {
     setLoading(true);
 
     try {
-      // Cargar datos de usuarios desde el JSON
-      const response = await fetch("/users.json");
-      const data = await response.json();
+      const response = await login(email, password);
 
-      // Buscar usuario con email y contraseña coincidentes
-      const user = data.users.find(
-        (u: any) => u.email === email && u.password === password
-      );
-
-      if (!user) {
-        setError("Email o contraseña incorrectos");
+      if (response.error) {
+        setError(response.error);
         setLoading(false);
         return;
       }
 
-      // Guardar datos del usuario en localStorage
+      // Save token
+      if (response.token) {
+        localStorage.setItem("token", response.token);
+      }
+
+      // Save user data
       localStorage.setItem(
         "user",
         JSON.stringify({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-          avatar: user.avatar,
-          initials: user.initials,
+          email: response.email,
+          role: response.role,
         })
       );
 
-      // Redirigir según el rol
-      if (user.role === "administrador") {
+      // Redirect based on role
+      const role = response.role?.toLowerCase();
+      if (role === "admin") {
         router.push("/admin");
-      } else if (user.role === "profesor") {
+      } else if (role === "teacher") {
         router.push("/profesor/mis-cursos");
-      } else if (user.role === "estudiante") {
+      } else if (role === "student") {
         router.push("/estudiante/mis-cursos");
       }
     } catch (err) {
