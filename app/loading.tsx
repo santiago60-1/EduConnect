@@ -11,7 +11,7 @@ export default function Loading() {
 
         {/* Título */}
         <h1 className="text-4xl font-bold text-gray-900 mb-2">EduConnect</h1>
-        <p className="text-gray-600 mb-8">Cargando plataforma educativa...</p>
+        <p className="text-gray-700 mb-8">Cargando plataforma educativa...</p>
 
         {/* Spinner de carga */}
         <div className="flex justify-center mb-8">
