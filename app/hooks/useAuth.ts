@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 interface User {
   email: string;
   role: string;
+  name?: string;
+  initials?: string;
 }
 
 export function useAuth(requiredRole?: string) {
