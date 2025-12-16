@@ -3,8 +3,10 @@
 import TeacherLayout from "@/app/components/TeacherLayout";
 import { useAuth } from "@/app/hooks/useAuth";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NuevoCursoPage() {
+  const router = useRouter();
   const { user, loading, authorized } = useAuth('profesor');
   const [formData, setFormData] = useState({
     titulo: "",
@@ -61,6 +63,15 @@ export default function NuevoCursoPage() {
   return (
     <TeacherLayout userName={user?.name || "Profesor"} userInitials={user?.initials || "PR"}>
       <div className="max-w-2xl mx-auto">
+        {/* Botón Volver Atrás */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+        >
+          <span className="text-xl">←</span>
+          Volver atrás
+        </button>
+
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Crear Nuevo Curso</h2>
           <p className="text-gray-600 mt-2">Registra un nuevo curso para tus estudiantes</p>
@@ -221,14 +232,14 @@ export default function NuevoCursoPage() {
             <div className="flex gap-4 pt-6">
               <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer"
               >
                 Crear Curso
               </button>
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium cursor-pointer"
               >
                 Cancelar
               </button>

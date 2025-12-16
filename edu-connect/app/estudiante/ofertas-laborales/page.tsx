@@ -208,7 +208,7 @@ export default function OfertasLaboralesPage() {
 
                     <a
                       href={`/estudiante/ofertas-laborales/${job.id}`}
-                      className="block w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center"
+                      className="block w-full py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors text-center cursor-pointer"
                     >
                       Ver Detalles
                     </a>

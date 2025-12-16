@@ -2,13 +2,32 @@
 
 import StudentLayout from "@/app/components/StudentLayout";
 import { useState, use } from "react";
+import { useRouter } from "next/navigation";
+
+interface Oferta {
+  titulo: string;
+  empresa: string;
+  ubicacion: string;
+  tipo: string;
+  salario: string;
+  descripcion: string;
+  responsabilidades: string[];
+  requisitos: string[];
+  habilidades_requeridas: string[];
+  habilidades_estudiante: string[];
+  coincidencia: number;
+  candidatos: number;
+  fecha_cierre: string;
+  beneficios: string[];
+}
 
 export default function DetallesOfertaPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const router = useRouter();
   const [aplicado, setAplicado] = useState(false);
 
   // Datos de ofertas según el ID
-  const ofertasData: Record<string, any> = {
+  const ofertasData: Record<string, Oferta> = {
     "1": {
       titulo: "Desarrollador Full Stack Junior",
       empresa: "TechCorp",
@@ -116,10 +135,7 @@ export default function DetallesOfertaPage({ params }: { params: Promise<{ id: s
     },
   };
 
-  const oferta = {
-    id: id,
-    ...ofertasData[id] || ofertasData["1"],
-  };
+  const oferta: Oferta = ofertasData[id] || ofertasData["1"];
 
   const habilidades_faltantes = oferta.habilidades_requeridas.filter(
     (h) => !oferta.habilidades_estudiante.includes(h)
@@ -128,6 +144,15 @@ export default function DetallesOfertaPage({ params }: { params: Promise<{ id: s
   return (
     <StudentLayout userName="Estudiante" userInitials="ES">
       <div className="max-w-4xl mx-auto">
+        {/* Botón Volver Atrás */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+        >
+          <span className="text-xl">←</span>
+          Volver atrás
+        </button>
+
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg shadow-lg p-8 mb-8">
           <div className="flex justify-between items-start">
@@ -279,7 +304,7 @@ export default function DetallesOfertaPage({ params }: { params: Promise<{ id: s
             {/* Botón de Aplicar */}
             <button
               onClick={() => setAplicado(!aplicado)}
-              className={`w-full py-3 rounded-lg font-medium transition-colors ${
+              className={`w-full py-3 rounded-lg font-medium transition-colors cursor-pointer ${
                 aplicado
                   ? "bg-gray-200 text-gray-900 hover:bg-gray-300"
                   : "bg-blue-600 text-white hover:bg-blue-700"

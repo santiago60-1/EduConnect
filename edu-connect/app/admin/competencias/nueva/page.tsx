@@ -2,8 +2,10 @@
 
 import AdminLayout from "@/app/components/AdminLayout";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function NuevaCompetenciaPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     nombre: "",
     categoria: "",
@@ -37,6 +39,15 @@ export default function NuevaCompetenciaPage() {
   return (
     <AdminLayout>
       <div className="max-w-2xl mx-auto">
+        {/* Botón Volver Atrás */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+        >
+          <span className="text-xl">←</span>
+          Volver atrás
+        </button>
+
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Nueva Competencia</h2>
           <p className="text-gray-600 mt-2">Registra una nueva competencia en el sistema</p>
@@ -146,7 +157,7 @@ export default function NuevaCompetenciaPage() {
                   name="icono"
                   value={formData.icono}
                   onChange={handleChange}
-                  maxLength="2"
+                  maxLength={2}
                   className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <div className="px-4 py-2 bg-gray-100 rounded-lg text-2xl flex items-center">
@@ -159,14 +170,14 @@ export default function NuevaCompetenciaPage() {
             <div className="flex gap-4 pt-6">
               <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer"
               >
                 Crear Competencia
               </button>
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                className="flex-1 px-6 py-3 bg-gray-300 text-gray-900 rounded-lg hover:bg-gray-400 transition-colors font-medium cursor-pointer"
               >
                 Cancelar
               </button>

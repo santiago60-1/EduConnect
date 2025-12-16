@@ -2,13 +2,34 @@
 
 import StudentLayout from "@/app/components/StudentLayout";
 import { useState, use } from "react";
+import { useRouter } from "next/navigation";
+
+interface ContenidoItem {
+  semana: number;
+  tema: string;
+  completado: boolean;
+}
+
+interface CursoData {
+  titulo: string;
+  codigo: string;
+  profesor: string;
+  descripcion: string;
+  fecha_inicio: string;
+  duracion: string;
+  estudiantes: number;
+  progreso: number;
+  competencias: string[];
+  contenido: ContenidoItem[];
+}
 
 export default function DetallesCursoPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("resumen");
 
   // Datos de cursos según el ID
-  const cursosData: Record<string, any> = {
+  const cursosData: Record<string, CursoData> = {
     "1": {
       titulo: "Programación Web Avanzada",
       codigo: "PWA-2025-A1",
@@ -73,6 +94,15 @@ export default function DetallesCursoPage({ params }: { params: Promise<{ id: st
   return (
     <StudentLayout userName="Estudiante" userInitials="ES">
       <div className="max-w-4xl mx-auto">
+        {/* Botón Volver Atrás */}
+        <button
+          onClick={() => router.back()}
+          className="mb-6 flex items-center gap-2 px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition-colors cursor-pointer"
+        >
+          <span className="text-xl">←</span>
+          Volver atrás
+        </button>
+
         {/* Header */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg shadow-lg p-8 mb-8">
           <div className="flex justify-between items-start">
@@ -153,7 +183,7 @@ export default function DetallesCursoPage({ params }: { params: Promise<{ id: st
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Competencias</h3>
                   <div className="flex flex-wrap gap-2">
-                    {curso.competencias.map((comp, idx) => (
+                    {curso.competencias.map((comp: string, idx: number) => (
                       <span
                         key={idx}
                         className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
@@ -169,7 +199,7 @@ export default function DetallesCursoPage({ params }: { params: Promise<{ id: st
             {activeTab === "contenido" && (
               <div className="space-y-3">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">Contenido del Curso</h3>
-                {curso.contenido.map((item, idx) => (
+                {curso.contenido.map((item: ContenidoItem, idx) => (
                   <div
                     key={idx}
                     className="flex items-center gap-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
@@ -204,10 +234,10 @@ export default function DetallesCursoPage({ params }: { params: Promise<{ id: st
 
         {/* Botones de Acción */}
         <div className="flex gap-4">
-          <button className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+          <button className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium cursor-pointer">
             Continuar Aprendiendo
           </button>
-          <button className="flex-1 px-6 py-3 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium">
+          <button className="flex-1 px-6 py-3 bg-gray-200 text-gray-900 rounded-lg hover:bg-gray-300 transition-colors font-medium cursor-pointer">
             Descargar Certificado
           </button>
         </div>
